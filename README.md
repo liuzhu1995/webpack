@@ -28,3 +28,25 @@ modules.exports = {
   mode: "development",
 }
 ```
+
+#### 使用 webpack-dev-server 插件
+提供 HTTP 服务而不是使用本地文件预览  
+监听文件的变化并自动刷新网页，做到实时预览    
+webpack-dev-server 只是将打包结果放在内存中，并不会写入实际的文件中，每次收到请求时只是将内存中的结果返回给浏览器  
+yarn add webpack-dev-server  
+weboack.config.js
+```
+module.exports = {
+  devServer: {
+    publicPath: "/dist",
+  }
+}
+```
+package.js
+```
+{
+  "scripts": {
+    "dev": "webpack-dev-server"
+  }
+}
+```
