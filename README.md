@@ -146,6 +146,18 @@ module.exports = {
   }),
 };
 ```
-
+#### vendor 
+对于单页应用（SPA）来说，一般都定义单一入口，无论是框架、库、还是各个页面的模块都有app.js 单一的入口文件进行引用。好处是只会产生一个js
+文件，依赖关系清晰，弊端是所有模块打包都一起，当应用规模上升到一定程度后会导致产生的资源体积过大，降低页面渲染速度，一旦产生代码更新，即使一点用户也要下载整个资源文件。  
+为解决此问题可以使用提取 vendor 方法。在 Webpack 中 vendor 一般指的是工程所使用的库、框架等第三方模块打包而产生的 bundle。  
+可以使用 vender 和 optimization.splitChunks，将 app 与 vendor 这两个 chunk 中的公共模块提取出来。这样配置，app.js 产生的 bundle 只包含业务模块，其依赖的第三方模块将会被抽取出来生成一个新的 budnle。 由于 vendor 仅包含第三方模块，这部分不经常变动，因此可以有效利用客户端缓存，加快页面渲染速度。  
+```
+module.exports = {
+  entry: {
+    app: "./src/app.js",
+    vendor: ["react", "react-dom", "antd"],
+  },
+};
+```
 
 
